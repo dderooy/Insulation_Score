@@ -9,7 +9,7 @@ import com.rvalues.mappers.QueryMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Hello world!
@@ -18,12 +18,13 @@ import java.util.ArrayList;
 public class App 
 {
     public static void main( String[] args ) throws IOException {
-        /* The data stack is where each line of data input will be stored
+        /* The data set is where each line of data input will be stored
         *  in a DataVO. This acts as the in code 'data base'. Similarily the
-        *  query stack stores all the input queries.
+        *  query set stores all the input queries. HashSet was the chosen data
+        *  structure to prevent duplicate data and allow for fast performance.
         */
-        ArrayList<DataVO> dataStack = new ArrayList<>();
-        ArrayList<QueryVO> queryStack = new ArrayList<>();
+        HashSet<DataVO> dataSet = new HashSet<>();
+        HashSet<QueryVO> querySet = new HashSet<>();
 
         /* If the query flag is false, each line of stdin will be converted to a
          * DataVO. If set true, stdin lines convert to QueryVOs.
@@ -41,15 +42,15 @@ public class App
                 continue;
             }
 
-            //map incoming data lines to DataVOs and add to data stack
+            //map incoming data lines to DataVOs and add to data set
             if(!queryFlag) {
                 DataVO dataVO = DataMapper.mapToDataVO(line);
-                dataStack.add(dataVO);
+                dataSet.add(dataVO);
             }
 
-            //map incoming query lines to QueryVOs and add to query stack
+            //map incoming query lines to QueryVOs and add to query set
             QueryVO queryVO = QueryMapper.mapToQueryVO(line);
-            queryStack.add(queryVO);
+            querySet.add(queryVO);
         }
 
         buff.close();
@@ -57,8 +58,8 @@ public class App
         /* For each query, get the owner rank for the desired region
         *  and output the result to stdout
         */
-        for(QueryVO query : queryStack){
-            query = RunQuery.getResult(query, dataStack);
+        for(QueryVO query : querySet){
+            query = RunQuery.getResult(query, dataSet);
             System.out.println("\"" + query.getOwner() + "\" \"" + query.getLocation() + "\"" + query.getRank());
         }
 

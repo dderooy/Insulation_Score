@@ -4,11 +4,12 @@ import com.rvalues.dtos.DataVO;
 import com.rvalues.dtos.QueryVO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class RunQuery {
 
-    public static QueryVO getResult(QueryVO queryVO, ArrayList<DataVO> dataStack){
+    public static QueryVO getResult(QueryVO queryVO, HashSet<DataVO> dataSet){
         /* queryOwner is the customer we are finding a rank for,
         *  and queryRegion is the region they are being ranked in.
         */
@@ -16,7 +17,7 @@ public class RunQuery {
         String queryRegion = queryVO.getRegion();
 
         /* Since a query input line does not give us the rValue to
-        *  check, we have to find it from the data set. This is the
+        *  check, we have to find it from the data set. queryRValue is the
         *  customer's rValue we are finding a rank for.
         */
         Float queryRValue = 0f;
@@ -30,7 +31,7 @@ public class RunQuery {
         *  relevant region rValues for the given query. It also grabs the customer
         *  queryRValue in question.
         */
-        for(DataVO dataVO : dataStack){
+        for(DataVO dataVO : dataSet){
             if(dataVO.getLocation().toLowerCase().contains(queryRegion.toLowerCase()))
                 regionRValues.add(dataVO.getRValue());
 

@@ -5,7 +5,7 @@ import com.rvalues.dtos.QueryVO;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class RunQueryTest {
 
@@ -31,7 +31,7 @@ public class RunQueryTest {
         Assert.assertEquals((Integer) 10, queryVO.getRank());
     }
 
-    private ArrayList<DataVO> createDataStack(){
+    private HashSet<DataVO> createDataStack(){
         DataVO dataVO1 = new DataVO();
         dataVO1.setOwner("John Doe");
         dataVO1.setLocation("Canada/Ontario/Toronto");
@@ -62,7 +62,7 @@ public class RunQueryTest {
         dataVO6.setLocation("Canada/Ontario/Toronto");
         dataVO6.setRValue(new Float(1.43));
 
-        ArrayList<DataVO> dataStack = new ArrayList<>();
+        HashSet<DataVO> dataStack = new HashSet<>();
         dataStack.add(dataVO1);
         dataStack.add(dataVO2);
         dataStack.add(dataVO3);
