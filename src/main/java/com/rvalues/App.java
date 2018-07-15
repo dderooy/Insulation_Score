@@ -1,14 +1,13 @@
 package com.rvalues;
 
 
+import com.rvalues.dtos.DataDto;
+import com.rvalues.dtos.QueryDto;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Hello world!
@@ -17,16 +16,36 @@ import java.util.regex.Pattern;
 public class App 
 {
     public static void main( String[] args ) throws IOException {
-        System.out.println( "Hello World!" );
+
+        ArrayList<DataDto> dataStack = new ArrayList<>();
+        ArrayList<QueryDto> queryStack = new ArrayList<>();
 
         BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
-        String line;
+        String line = buff.readLine().trim();
 
-        while ((line = buff.readLine()) != null && line.length() != 0){
+        boolean queryFlag = false;
 
+        while (line != null ){
+            if(line.isEmpty()) {
+                queryFlag = true;
+                continue;
+            }
+
+            if(!queryFlag) {
+                DataDto dataDto = DataReader.toHomeDto(line);
+                dataStack.add(dataDto);
+            }
+
+            QueryDto queryDto = QueryReader.toQueryDto(line);
+            queryStack.add(queryDto);
         }
 
+        buff.close();
 
+        for(QueryDto query : queryStack){
+            query = RunQuery.getResult(query, dataStack);
+            System.out.println("\"" + query.getOwner() + "\" \"" + query.getLocation() + "\"" + query.getRank());
+        }
 
 
 
