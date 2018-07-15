@@ -3,9 +3,6 @@ package com.rvalues.dtos;
 public class DataVO {
     private String owner;
     private String location;
-    private String country;
-    private String state;
-    private String city;
     private float rValue;
 
     public String getOwner(){return owner;}

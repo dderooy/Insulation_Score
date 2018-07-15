@@ -17,7 +17,7 @@ import java.util.HashSet;
  */
 public class App 
 {
-    public static void main( String[] args ) throws IOException {
+    public static void main( String[] args ) {
         /* The data set is where each line of data input will be stored
         *  in a DataVO. This acts as the in code 'data base'. Similarily the
         *  query set stores all the input queries. HashSet was the chosen data
@@ -31,38 +31,49 @@ public class App
          */
         boolean queryFlag = false;
 
-        //Read each line from stdin, assign it to a string and trim whitespaces.
-        BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
-        String line = buff.readLine().trim();
+        try {
 
-        while (line != null ){
-            //check for end of data input
-            if(line.isEmpty()) {
-                queryFlag = true;
-                continue;
+            BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
+            String line;
+
+            //Read each line from stdin, assign it to a string and trim whitespaces.
+            while ((line = buff.readLine()) != null) {
+
+                line = line.trim();
+
+                //check for the empty line signifying the beginning of query input
+                if (line.isEmpty()) {
+                    queryFlag = true;
+                    continue;
+                }
+
+                //map incoming data lines to DataVOs and add to data set
+                if (!queryFlag) {
+                    DataVO dataVO = DataMapper.mapToDataVO(line);
+                    dataSet.add(dataVO);
+                }
+
+                //map incoming query lines to QueryVOs and add to query set
+                if(queryFlag) {
+                    QueryVO queryVO = QueryMapper.mapToQueryVO(line);
+                    querySet.add(queryVO);
+                }
+
             }
 
-            //map incoming data lines to DataVOs and add to data set
-            if(!queryFlag) {
-                DataVO dataVO = DataMapper.mapToDataVO(line);
-                dataSet.add(dataVO);
-            }
+            buff.close();
 
-            //map incoming query lines to QueryVOs and add to query set
-            QueryVO queryVO = QueryMapper.mapToQueryVO(line);
-            querySet.add(queryVO);
+        } catch (IOException io){
+            io.printStackTrace();
         }
-
-        buff.close();
 
         /* For each query, get the owner rank for the desired region
         *  and output the result to stdout
         */
         for(QueryVO query : querySet){
             query = RunQuery.getResult(query, dataSet);
-            System.out.println("\"" + query.getOwner() + "\" \"" + query.getLocation() + "\"" + query.getRank());
+            System.out.println("\"" + query.getOwner() + "\" \"" + query.getLocation() + "\" " + query.getRank());
         }
-
 
 
     }
