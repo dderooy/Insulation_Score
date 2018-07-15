@@ -59,26 +59,7 @@ public class RunQuery {
         /* The last step is to find the query rank given the percentage of homes with
         *  better rValues
         */
-        if((double) 90<= percentile && percentile < (double) 100)
-            queryVO.setRank(1);
-        if((double) 80<= percentile && percentile < (double) 90)
-            queryVO.setRank(2);
-        if((double) 70<= percentile && percentile < (double) 80)
-            queryVO.setRank(3);
-        if((double) 60<= percentile && percentile < (double) 70)
-            queryVO.setRank(4);
-        if((double) 50<= percentile && percentile < (double) 60)
-            queryVO.setRank(5);
-        if((double) 40<= percentile && percentile < (double) 50)
-            queryVO.setRank(6);
-        if((double) 30<= percentile && percentile < (double) 40)
-            queryVO.setRank(7);
-        if((double) 20<= percentile && percentile < (double) 30)
-            queryVO.setRank(8);
-        if((double) 10<= percentile && percentile < (double) 20)
-            queryVO.setRank(9);
-        if((double) 0<= percentile && percentile < (double) 10)
-            queryVO.setRank(10);
+        queryVO.setRank((int) Math.ceil((100 - percentile) / 10.0));
 
         return queryVO;
     }
