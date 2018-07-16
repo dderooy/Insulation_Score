@@ -56,4 +56,5 @@ Clone this repo and run "mvn clean install" in directory. Go to mvn repo and get
 ```
 $ cat testData.txt | java -jar rValueRank.jar
 ```
-
+## Recommendations 
+As always, more testing can be done. The program performance is dependent on how many queries there are. The more queries, the more time it takes to finish. Possible performance gains could be made by opening a new thread for every query, and processing it asynchronously. 
