@@ -62,6 +62,16 @@ public class RunQueryTest {
         dataVO6.setLocation("Canada/Ontario/Toronto");
         dataVO6.setRValue(new Float(1.43));
 
+        DataVO dataVO7 = new DataVO();
+        dataVO7.setOwner("John Doe");
+        dataVO7.setLocation("Canada/Ontario/Toronto");
+        dataVO7.setRValue(new Float(1.5));
+
+        DataVO dataVO8 =new DataVO();
+        dataVO8.setOwner("Samantha Smith");
+        dataVO8.setLocation("Canada/Ontario/London");
+        dataVO8.setRValue(new Float(3.7));
+
         HashSet<DataVO> dataStack = new HashSet<>();
         dataStack.add(dataVO1);
         dataStack.add(dataVO2);
@@ -69,6 +79,8 @@ public class RunQueryTest {
         dataStack.add(dataVO4);
         dataStack.add(dataVO5);
         dataStack.add(dataVO6);
+        dataStack.add(dataVO7);
+        dataStack.add(dataVO8);
 
         return dataStack;
     }
