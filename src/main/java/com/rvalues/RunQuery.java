@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RunQuery {
 
-    public static QueryVO getResult(QueryVO queryVO, HashSet<DataVO> dataSet){
+    public static void getResult(QueryVO queryVO, HashSet<DataVO> dataSet){
         /* queryOwner is the customer we are finding a rank for,
         *  and queryRegion is the region they are being ranked in.
         */
@@ -61,7 +61,6 @@ public class RunQuery {
         */
         queryVO.setRank((int) Math.ceil((100 - percentile) / 10.0));
 
-        return queryVO;
     }
 
 

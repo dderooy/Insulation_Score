@@ -9,7 +9,9 @@ import com.rvalues.mappers.QueryMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Hello world!
@@ -24,7 +26,7 @@ public class App
         *  structure to prevent duplicate data and allow for fast performance.
         */
         HashSet<DataVO> dataSet = new HashSet<>();
-        HashSet<QueryVO> querySet = new HashSet<>();
+        List<QueryVO> queryList = new ArrayList<>();
 
         /* If the query flag is false, each line of stdin will be converted to a
          * DataVO. If set true, stdin lines convert to QueryVOs.
@@ -56,7 +58,7 @@ public class App
                 //map incoming query lines to QueryVOs and add to query set
                 if(queryFlag) {
                     QueryVO queryVO = QueryMapper.mapToQueryVO(line);
-                    querySet.add(queryVO);
+                    queryList.add(queryVO);
                 }
 
             }
@@ -70,11 +72,10 @@ public class App
         /* For each query, get the owner rank for the desired region
         *  and output the result to stdout
         */
-        for(QueryVO query : querySet){
-            query = RunQuery.getResult(query, dataSet);
+        for(QueryVO query : queryList){
+            RunQuery.getResult(query, dataSet);
             System.out.println("\"" + query.getOwner() + "\" \"" + query.getLocation() + "\" " + query.getRank());
         }
-
 
     }
 

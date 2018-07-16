@@ -14,19 +14,19 @@ public class RunQueryTest {
         QueryVO queryVO = new QueryVO();
         queryVO.setOwner("John Doe");
         queryVO.setRegion("Canada");
-        queryVO = RunQuery.getResult(queryVO, createDataStack());
+        RunQuery.getResult(queryVO, createDataStack());
         Assert.assertNotNull(queryVO);
         Assert.assertEquals((Integer) 4, queryVO.getRank());
 
         queryVO.setOwner("John Doe");
         queryVO.setRegion("Ontario");
-        queryVO = RunQuery.getResult(queryVO, createDataStack());
+        RunQuery.getResult(queryVO, createDataStack());
         Assert.assertNotNull(queryVO);
         Assert.assertEquals((Integer) 5, queryVO.getRank());
 
         queryVO.setOwner("Alicia Yazzie");
         queryVO.setRegion("Arizona");
-        queryVO = RunQuery.getResult(queryVO, createDataStack());
+        RunQuery.getResult(queryVO, createDataStack());
         Assert.assertNotNull(queryVO);
         Assert.assertEquals((Integer) 10, queryVO.getRank());
     }
